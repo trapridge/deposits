@@ -1,0 +1,9 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "noEmit": true,
+    "removeComments": false
+  },
+  "include": ["../src/**/*.ts", "**/*.ts"]
+}
