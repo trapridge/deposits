@@ -32,21 +32,20 @@ async function build(t: Test) {
 export { config, build }
 
 export const testInput = {
-  "test": [
+  test: [
     {
-      "type": "win",
-      "value": 36000
-    }
+      type: 'win',
+      value: 36000,
+    },
   ],
-  "test2": [
+  test2: [
     {
-      "type": "win",
-      "value": 36000
+      type: 'win',
+      value: 36000,
     },
     {
-      "type": "lose",
-      "value": 64800
-    }
-  ]
+      type: 'lose',
+      value: 64800,
+    },
+  ],
 }
-
