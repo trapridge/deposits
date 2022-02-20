@@ -1,4 +1,4 @@
-# tesseract
+# deposits API
 
 Tested on Node 14.9.0 and built with TypeScript and Fastify.
 
@@ -25,3 +25,7 @@ Reformat code.
 ## License
 
 MIT
+
+## Idea by
+
+Tesseract

@@ -15,9 +15,10 @@
 - Use TypeScript to complete the tasks
 - Create a repository for your code
 - Commit **each** task separately
-- Test each task with the associated script 
+- Test each task with the associated script
 
 ### You can
+
 - Use whatever libraries or frameworks
 - Use whatever database (or persistence mechanism)
 - Google and stackoverflow as much as you like
@@ -116,7 +117,7 @@ Should return the user information amended with a newly allocated user ID:
 ```console
 curl -sv \
      -d '{"email":"charlie@example.com"}' \
-     -H "Content-Type: application/json" \ 
+     -H "Content-Type: application/json" \
      http://localhost:3000/api/users
 ```
 
@@ -127,7 +128,7 @@ curl -sv \
 ```json
 {
   "userId": 3,
-  "amount": 100,
+  "amount": 100
 }
 ```
 
