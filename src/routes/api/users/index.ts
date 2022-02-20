@@ -1,61 +1,51 @@
+import { Type } from '@sinclair/typebox'
 import { FastifyPluginAsync } from 'fastify'
-// import { ItemsObj, ItemsObjType } from './types'
+import { getBalance } from '../../../services/deposits'
+import {
+  addUser,
+  AddUserDto,
+  AddUserDtoT,
+  getUsers,
+  hasUserByEmail,
+  UserDto,
+  DepositDtoT,
+} from '../../../services/users'
 
-// import { validateRequest } from './pre-handlers'
-// import { processOpeningHours } from './service'
-// import { Type } from '@sinclair/typebox'
-
-/*
-
-alice@example.com,0.1,BTC
-bob@example.com,0.075,BTC
-alice@example.com,-0.050,BTC
-
-*/
-
-let id = 1;
-
-const userData = [{
-    id: id++,
-    email: 'alice@example.com',
-  }, {
-    id: id++,
-    email: 'bob@example.com'
-  }
-]
-
-const getUsers = () => userData;
-
-const addUser = (user: { email: string }) => {
-  return [...getUsers(), {
-    id: id++,
-    email: user.email
-  }]
-}
-
-const users: FastifyPluginAsync = async (
-  fastify,
-  opts,
-): Promise<void> => {
-  fastify.get(
-    '/',
-    {
-      // schema: { body: ItemsObj, response: Type.String },
-      // preHandler: async (request) => validateRequest(request.body),
-    },
-    async (request) => getUsers(),
-  ).post(
-    '/',
-    {
-      // schema: { body: ItemsObj, response: Type.String },
-      // preHandler: async (request) => validateRequest(request.body),
-    },
-    async (request) => {
-      const users = addUser(request.body as any)
-      return users[users.length - 1]
-    },
-  )
+const users: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
+  fastify
+    .get<{ Reply: DepositDtoT[] }>(
+      '/',
+      {
+        schema: { response: { 200: Type.Array(UserDto) } },
+      },
+      async (request, reply) => {
+        const users = getUsers()
+        const usersWithBalances = users.map((user) => {
+          const balance = getBalance(user.id)
+          return {
+            ...user,
+            balance,
+          }
+        })
+        reply.send(usersWithBalances)
+      },
+    )
+    .post<{ Body: AddUserDtoT; Reply: DepositDtoT }>(
+      '/',
+      {
+        schema: { body: AddUserDto, response: { 201: UserDto } },
+        preHandler: async (request, reply) => {
+          const userExists = hasUserByEmail(request.body.email)
+          if (userExists) {
+            reply.code(400).send()
+          }
+        },
+      },
+      async (request, reply) => {
+        const user = addUser(request.body)
+        reply.code(201).send(user)
+      },
+    )
 }
 
 export default users
-
