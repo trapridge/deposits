@@ -1,66 +1,6 @@
-POST http://127.0.0.1:3000/opening-hours HTTP/1.1
+POST http://127.0.0.1:3000/api/users HTTP/1.1
 Content-Type: application/json
 
 {
-    "monday": [
-        {
-            "type": "close",
-            "value": 36000
-        }
-    ],
-    "tuesday": [
-        {
-            "type": "open",
-            "value": 36000
-        },
-        {
-            "type": "close",
-            "value": 64800
-        }
-    ],
-    "wednesday": [],
-    "thursday": [
-        {
-            "type": "open",
-            "value": 37800
-        },
-        {
-            "type": "close",
-            "value": 64800
-        }
-    ],
-    "friday": [
-        {
-            "type": "open",
-            "value": 36000
-        }
-    ],
-    "saturday": [
-        {
-            "type": "close",
-            "value": 3600
-        },
-        {
-            "type": "open",
-            "value": 36000
-        }
-    ],
-    "sunday": [
-        {
-            "type": "close",
-            "value": 3600
-        },
-        {
-            "type": "open",
-            "value": 43200
-        },
-        {
-            "type": "close",
-            "value": 75600
-        },
-        {
-            "type": "open",
-            "value": 75800
-        }
-    ]
+    "email": "charlie@example.com"
 }
